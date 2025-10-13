@@ -1,9 +1,17 @@
-# Use the official lightweight Python image
-FROM python:3.12-slim
+# Imagen base
+FROM python:3.10-slim
 
-# Set a working directory (optional but good practice)
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Define the default command to run when the container starts
-CMD ["python", "-c", "print('Hello World PY')"]
+# Copia el script al contenedor
+COPY app.py .
 
+# Instala Flask
+RUN pip install flask
+
+# Expone el puerto en el que correrá la app
+EXPOSE 3000
+
+# Comando por defecto para ejecutar la app
+CMD ["python", "app.py"]
