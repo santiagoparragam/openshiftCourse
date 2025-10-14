@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  # El nombre que usarás para referenciar esta ServiceAccount
+  name: spm-serviceaccount
+  # Opcional: El namespace donde se creará. Si se omite, se usará 'default'.
+  namespace: spm
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: dashboard-spm
+  # Este rol existirá en el namespace del proyecto
+  namespace: spm
+rules:
+- apiGroups: ["", "apps", "autoscaling", "batch", "extensions", "networking.k8s.io", "storage.k8s.io"]
+  resources: ["configmaps", "endpoints", "events", "ingresses", "persistentvolumeclaims", "pods", "podtemplates", "replicationcontrollers", "resourcequotas", "secrets", "serviceaccounts", "services", "deployments", "daemonsets", "replicasets", "statefulsets", "horizontalpodautoscalers", "cronjobs", "jobs", "networkpolicies", "storageclasses"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments/scale"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: spm-dashboard-readonly-binding
+  namespace: spm
+subjects:
+- kind: ServiceAccount
+  name: spm-serviceaccount # La cuenta de servicio que creamos
+  namespace: spm
+roleRef:
+  kind: Role
+  name: dashboard-spm # El rol que creamos
+  apiGroup: rbac.authorization.k8s.io

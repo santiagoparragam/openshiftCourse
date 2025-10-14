@@ -1,5 +1,6 @@
 # Imagen base
-FROM python:3.10-slim
+FROM santiagoparraga/holamundobasespm:1
+
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -7,9 +8,13 @@ WORKDIR /app
 # Copia el script al contenedor
 COPY app.py .
 
+
 # Instala Flask
 RUN pip install flask
 
+RUN chown -R appuser:appgroup /app
+
+USER appuser
 # Expone el puerto en el que correrá la app
 EXPOSE 3000
 
