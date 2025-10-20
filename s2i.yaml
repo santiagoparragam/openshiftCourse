@@ -1,9 +1,9 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: openshift-course-git
+  name: ejercicio-codigo-s2i
   label:
-    app: openshift-course-git
+    app: ejercicio-codigo-s2i
 spec:
   lookupPolicy:
     local: false
@@ -11,15 +11,15 @@ spec:
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: openshift-course-git
+  name: ejercicio-codigo-s2i
   label:
-    app: openshift-course-git
+    app: ejercicio-codigo-s2i
 spec:
   source:
     type: Git
     git:
       uri: https://github.com/santiagoparragam/openshiftCourse.git
-      ref: master
+      ref: main
     contextDir: ''
   strategy:
     type: Source
@@ -31,4 +31,4 @@ spec:
   output:
     to: 
       kind: ImageStreamTag
-      name: "openshift-course-git:latest"
+      name: "ejercicio-codigo-s2i:latest"
