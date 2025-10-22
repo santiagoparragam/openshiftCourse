@@ -37,6 +37,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -55,17 +56,14 @@ jobs:
         with:
           openshift_server_url: https://api.rm1.0a51.p1.openshiftapps.com:6443
           openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
-       - name: Update Deployment tag
-        env:
-          TAG:  build-${{ github.run_number }}
+      - name: Update Deployment tag
         run: |
-          envsubst < oc.yaml > oc.tmp
-          mv oc.tmp oc.yaml
+          echo "Reemplazando {{ tag }} con ${{ github.run_number }}"
+          sed -i "s|{{ tag }}|${{ github.run_number }}|g" oc.yaml
           cat oc.yaml
-
 
       - name: Deploy files
         run: |
-          oc project  santiago-parraga-dev
+          oc project santiago-parraga-dev
           oc apply -f oc.yaml
           oc rollout status deployment/mi-deployment
