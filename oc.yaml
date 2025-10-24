@@ -101,7 +101,7 @@ metadata:
   namespace: santiago-parraga-dev
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
