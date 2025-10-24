@@ -86,3 +86,16 @@ spec:
       target:
         type: Utilization
         averageUtilization: 100
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mi-pvc
+  namespace: adonis-paz-dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    request:
+      storage: 1Gi
+  storageClassName: gp3
