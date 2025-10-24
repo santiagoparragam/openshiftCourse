@@ -40,7 +40,7 @@ spec:
       volumes:
         - name: datos
           persistentVolumeClaim:
-            claimName: mi-pvc
+            claimName: mi-pvc2
 ---
 apiVersion: v1
 kind: Service
@@ -97,7 +97,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mi-pvc
+  name: mi-pvc2
   namespace: santiago-parraga-dev
 spec:
   accessModes:
