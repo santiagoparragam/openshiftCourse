@@ -5,7 +5,7 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 # URL for Microservice B (which runs on localhost:3000)
-APP_B_URL = 'http://mi-servicio2.santiago-parraga-dev.svc.cluster.local:3000/'
+APP_B_URL = 'http://mi-servicio2.santiago-parraga-dev.svc.cluster.local:4000/'
 
 @app.route('/', methods=['GET'])
 def call_app_b():
@@ -31,6 +31,18 @@ def call_app_b():
             "error": "Failed to connect to Microservice B",
             "details": str(e)
         }), 500
+
+@app.route('/health', methods=['GET'])
+def call_health():
+    return 'OK', 200
+
+@app.route('/startup', methods=['GET'])
+def call_startup():
+    return 'OK', 200
+    
+@app.route('/readiness', methods=['GET'])
+def call_readiness():
+    return 'OK', 200
 
 if __name__ == '__main__':
     # Running on 0.0.0.0 and port 3001
