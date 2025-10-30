@@ -69,5 +69,5 @@ jobs:
       - name: Deploy files
         run: |
           oc project santiago-parraga-dev
-          helm show chart oci://registry-1.docker.io/santiagoparraga/mi-chart --version 5
-          helm upgrade --install microservicio-1 oci://registry-1.docker.io/santiagoparraga/mi-chart --version 5 --values values.yaml
+          helm show chart oci://registry-1.docker.io/santiagoparraga/mi-chart --version 6
+          helm upgrade --install microservicio-1 oci://registry-1.docker.io/santiagoparraga/mi-chart --version 6 --values values.yaml
